@@ -12,9 +12,7 @@ public class AuthHttpUtils {
 
     private static final String PROXY_USERNAME = PropertyReader.getProperty("http.proxy.username");
     private static final String PROXY_PASSWORD = PropertyReader.getProperty("http.proxy.password");
-    private static final int PROXY_PORT = Integer.parseInt(PropertyReader.getProperty("http.proxy.port"));
 
-    private static final String PROXY_HOST = PropertyReader.getProperty("http.proxy.host");
 
     private static Authenticator proxyAuthenticator = new Authenticator() {
         @Override

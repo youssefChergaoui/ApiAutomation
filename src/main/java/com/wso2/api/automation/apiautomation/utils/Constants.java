@@ -21,12 +21,7 @@ public class Constants {
     public static final String SPACE_SEPARATOR = " ";
     public static final String DEFAULT_API_VERSION = "1.0.0";
 
-    public static final int PROXY_PORT = 8080;
-    public static final String PROXY_HOST = System.getenv("PROXY_HOST");
-    public static final String PROXY_USERNAME = System.getenv("PROXY_USERNAME");
-    public static final String PROXY_PASSWORD = System.getenv("PROXY_PASSWORD");
-    public static final String CONTENT_TYPE = "Content-Type";
-    public static final String APPLICATION_JSON = "application/json";
+
 
 
 
