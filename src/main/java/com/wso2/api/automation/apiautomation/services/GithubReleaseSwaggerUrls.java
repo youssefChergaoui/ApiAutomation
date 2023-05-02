@@ -16,7 +16,7 @@ public class GithubReleaseSwaggerUrls {
     private static final String owner = "youssefChergaoui";
     private static final String repo = "ApiAutomation";
     private static final String releaseTag = "wso";
-    private static final String accessToken = "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";
+    private static final String accessToken = "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";
     public static List<SwaggerAsset> getSwaggerUrls() throws IOException {
         OkHttpClient client = new OkHttpClient();
 
