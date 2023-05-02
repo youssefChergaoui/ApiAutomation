@@ -16,7 +16,7 @@ public class GithubReleaseSwaggerUrls {
     private static final String owner = "youssefChergaoui";
     private static final String repo = "ApiAutomation";
     private static final String releaseTag = "wso";
-    private static final String accessToken = "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";
+    private static final String accessToken = "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";
     public static List<SwaggerAsset> getSwaggerUrls() throws IOException {
         OkHttpClient client = new OkHttpClient();
 
@@ -27,6 +27,7 @@ public class GithubReleaseSwaggerUrls {
 
         Response response = client.newCall(request).execute();
         String responseBody = response.body().string();
+        System.out.println(responseBody);
 
         JSONObject releaseJson = new JSONObject(responseBody);
         JSONArray assetsJsonArray = releaseJson.getJSONArray("assets");
