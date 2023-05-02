@@ -1,6 +1,8 @@
 package com.wso2.api.automation.apiautomation;
 
 import com.wso2.api.automation.apiautomation.models.Revision;
+import com.wso2.api.automation.apiautomation.models.SwaggerAsset;
+import com.wso2.api.automation.apiautomation.services.GithubReleaseSwaggerUrls;
 import com.wso2.api.automation.apiautomation.services.HttpGenericServices;
 import com.wso2.api.automation.apiautomation.services.OAuth2TokenServices;
 import com.wso2.api.automation.apiautomation.services.PublisherServices;
@@ -17,11 +19,14 @@ public class ApiAutomationApplication {
         List<Revision> revisions = null;
         String apiId = null;
         try {
-
+            //Get swagger URLS
+            List<SwaggerAsset> swaggerUrl = GithubReleaseSwaggerUrls.getSwaggerUrls();
+            for(int nbrSwagger=0;nbrSwagger<swaggerUrl.size();nbrSwagger++){
             //Get Swagger Content
             String swaggetContent = null;
             try{
-                swaggetContent = HttpGenericServices.getSwaggerContentFromUrll("https://petstore.swagger.io/v2/swagger.json");
+                //swaggetContent = HttpGenericServices.getSwaggerContentFromUrll("https://petstore.swagger.io/v2/swagger.json");
+                swaggetContent = HttpGenericServices.getSwaggerContentFromUrll(swaggerUrl.get(nbrSwagger).getDownloadUrl());
                 //File swaggerContent = new File("C:\\Users\\CHERGAOUIY\\Desktop\\sg.json");
                 System.out.println(swaggetContent);
             }catch (Exception e) {
@@ -93,7 +98,7 @@ public class ApiAutomationApplication {
                 PublisherServices.publishAPI(apiId,accessToken);
             }catch (Exception e) {
                 System.err.println("Error in function publishAPI : " + e.getMessage());
-            }
+            }}
 
 
             //Update API
