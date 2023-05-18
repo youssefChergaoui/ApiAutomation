@@ -8,7 +8,7 @@ pipeline {
             steps {
 //                 echo 'Building...'
                 bat "mvn clean install"
-                bat "pwd"
+               // bat "pwd"
                 bat "mvn package"
             }
         }
@@ -16,7 +16,7 @@ pipeline {
             steps {
 //                 echo 'Running...'
                 dir('./target/') {
-                    bat "pwd"
+                   // bat "pwd"
                     bat "java -jar ApiAutomation-0.0.1-SNAPSHOT.jar"
                 }
             }
