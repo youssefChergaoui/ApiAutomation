@@ -6,18 +6,18 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building...'
-                sh "mvn clean install"
-                sh "pwd"
-                sh "mvn package"
+//                 echo 'Building...'
+                bat "mvn clean install"
+                bat "pwd"
+                bat "mvn package"
             }
         }
         stage('Run') {
             steps {
-                echo 'Running...'
+//                 echo 'Running...'
                 dir('./target/') {
-                    sh "pwd"
-                    sh "java -jar ApiAutomation-0.0.1-SNAPSHOT.jar"
+                    bat "pwd"
+                    bat "java -jar ApiAutomation-0.0.1-SNAPSHOT.jar"
                 }
             }
         }
