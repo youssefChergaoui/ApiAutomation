@@ -2,12 +2,12 @@ package com.wso2.api.automation.apiautomation;
 
 import com.wso2.api.automation.apiautomation.models.Revision;
 import com.wso2.api.automation.apiautomation.models.SwaggerAsset;
-import com.wso2.api.automation.apiautomation.services.GithubReleaseSwaggerUrls;
 import com.wso2.api.automation.apiautomation.services.HttpGenericServices;
 import com.wso2.api.automation.apiautomation.services.OAuth2TokenServices;
 import com.wso2.api.automation.apiautomation.services.PublisherServices;
+import com.wso2.api.automation.apiautomation.services.SwaggerUrls;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import java.util.Arrays;
+
 import java.util.List;
 
 @SpringBootApplication
@@ -18,19 +18,39 @@ public class ApiAutomationApplication {
         String accessToken = null;
         List<Revision> revisions = null;
         String apiId = null;
+
         try {
+            //test///////////////////
+            System.out.println("listttt : "+SwaggerUrls.getModifiedOrAddedLines("swaggersUrls","main"));
+
+            //String swaggerContent = HttpGenericServices.getSwaggerContentFromUrl("https://petstore.swagger.io/v2/swagger.json");
+            //SwaggerUrls.addSwaggerToRelease(swaggerContent);
+
+            //////////////////////////////////////////////////////////////
+            List<SwaggerAsset> list1=null;
+            List<String> list2=null;
+
             //Get swagger URLS
-            List<SwaggerAsset> swaggerUrl = GithubReleaseSwaggerUrls.getSwaggerUrls();
-            for(int nbrSwagger=0;nbrSwagger<swaggerUrl.size();nbrSwagger++){
+            try{
+                //list1 = SwaggerUrls.getSwaggerUrlsFromRelease();
+                //list2 = SwaggerUrls.getSwaggerUrlsFromFile();
+                //System.out.println("List2 :"+list2);
+
+            }catch (Exception e){
+                System.err.println("Error in function getSwaggerUrlsFromRelease | getSwaggerUrlsFromFile : " + e.getMessage());
+            }
+
+            for(int nbrSwagger=0;nbrSwagger<1;nbrSwagger++){
             //Get Swagger Content
             String swaggetContent = null;
             try{
                 //swaggetContent = HttpGenericServices.getSwaggerContentFromUrll("https://petstore.swagger.io/v2/swagger.json");
-                swaggetContent = HttpGenericServices.getSwaggerContentFromUrll(swaggerUrl.get(nbrSwagger).getDownloadUrl());
+                //swaggetContent = HttpGenericServices.getSwaggerContentFromUrll(list1.get(nbrSwagger).getDownloadUrl());
+                swaggetContent = HttpGenericServices.getSwaggerContentFromUrll("https://petstore.swagger.io/v2/swagger.json");
                 //File swaggerContent = new File("C:\\Users\\CHERGAOUIY\\Desktop\\sg.json");
                 System.out.println(swaggetContent);
             }catch (Exception e) {
-                System.err.println("Error in function getSwaggerContentFromUrll : " + e.getMessage());
+                System.err.println("Error in function getSwaggerContentFromUrl : " + e.getMessage());
             }
             System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 
@@ -100,6 +120,8 @@ public class ApiAutomationApplication {
                 System.err.println("Error in function publishAPI : " + e.getMessage());
             }}
 
+
+            PublisherServices.updateSwaggerApi("","","");
 
             //Update API
             //UpdateApiRequest updateApiRequest=new UpdateApiRequest("","","");

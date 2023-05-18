@@ -15,6 +15,7 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
@@ -43,8 +44,8 @@ public class PublisherServices {
         String version=null;
         String endPoints=null;
 
-            name = "ok";//FileUtils.find(swaggerFileContent,"info.title");
-            version = FileUtils.find(swaggerContent,"info.version");
+            name = "Messagerie";//FileUtils.find(swaggerFileContent,"info.title");
+            version = "1.0.0";FileUtils.find(swaggerContent,"info.version");
             endPoints = "https://localhost:9443/am/v1/api/";//FileUtils.find(swaggerFileContent,"servers[0].url");
         additionalProperties.setName(name);
         additionalProperties.setContext("Api");
@@ -374,11 +375,9 @@ public class PublisherServices {
      * @return void.
      */
     public static void updateApi(String apiId, String accessToken, UpdateApiRequest updateRequest) {
-        String apiUrl = PUBLISHER_ENDPOINT + "/apis/" + apiId;
+        String apiUrl = PUBLISHER_ENDPOINT + apiId;
 
         JSONObject requestBodyJson = new JSONObject()
-                .put("name", updateRequest.getName())
-                .put("description", updateRequest.getDescription())
                 .put("endpointConfig", updateRequest.getEndpointConfig());
 
         MediaType mediaType = MediaType.parse("application/json");
@@ -404,6 +403,37 @@ public class PublisherServices {
             System.out.println("Failed to update API. Error message : " + e.getMessage());
         }
     }
+
+    ///////////////////////test/////////////////////
+
+
+    public static boolean updateSwaggerApi(String apiId, String swaggerContent, String accessToken) {
+        String url = API_PUBLISHER_ENDPOINT + "/apis/" + apiId + "/swagger";
+        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart(INLINE_API_DEFINITION, swaggerContent)
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .put(body)
+                .addHeader(AUTHORIZATION, BEARER + SPACE_SEPARATOR + accessToken)
+                .build();
+        try {
+            Response response = AuthHttpUtils.getUnsafeOkHttpClientWithProxy().newCall(request).execute();
+            String bodyResponse = response.body().string();
+            if (response.isSuccessful()) {
+                System.out.println("Successfully updated API swagger || Response Body : " + bodyResponse);
+                return true;
+            } else {
+                System.out.println("Failed to update API swagger : " + response.code() + " || " + bodyResponse);
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to update API swagger. Error : " + e.getMessage());
+            return false;
+        }
+    }
+
+
 
 
 

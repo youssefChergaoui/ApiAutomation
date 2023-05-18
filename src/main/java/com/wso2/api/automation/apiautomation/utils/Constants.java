@@ -20,6 +20,18 @@ public class Constants {
     public static final String[] ACTION = new String[]{"Publish", "Deploy as a Prototype", "Demote to Created", "Block", "Deprecate", "Re-Publish", "Retire"};
     public static final String SPACE_SEPARATOR = " ";
     public static final String DEFAULT_API_VERSION = "1.0.0";
+    public static final String OWNER = "owner";
+    public static final String REPO = "repo";
+    public static final String RELEASETAG = "releaseTag";
+    public static final String CONTENT_TYPE = "Content-Type";
+    public static final String ACCEPT = "Accept";
+    public static final String APPLICATION_JSON = "application/json";
+    public static final String ASSETS = "assets";
+    public static final String NAME = "name";
+    public static final String SWAGGER_ = "swagger-";
+    public static final String BROWSER_DOWLOAD_URL = "browser_download_url";
+
+
 
 
 

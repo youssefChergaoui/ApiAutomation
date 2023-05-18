@@ -12,6 +12,7 @@ public class AdditionalProperties {
     private String version;
     private String[] policies = THROTTLING_POLICIES;
     private EndpointConfig endpointConfig;
+    private String swaggerDefinition;
 
 
 
@@ -32,6 +33,7 @@ public class AdditionalProperties {
     }
     public void setPolicies(String[] policies) { this.policies = policies; }
     public void setEndpointConfig(EndpointConfig endpointConfig){ this.endpointConfig=endpointConfig; }
+    public void setSwaggerDefinition(String swaggerDefinition){ this.swaggerDefinition=swaggerDefinition; }
     public String getName() {
         return name;
     }
