@@ -1,23 +1,24 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven-3.9.1'
+        maven 'maven-3.9.1'
     }
     stages {
         stage('Build') {
             steps {
-//                 echo 'Building...'
-                bat "mvn clean install"
-               // bat "pwd"
-                bat "mvn package"
+                echo 'Building...'
+                sh "mvn clean install"
+                sh "mvn package"
             }
         }
         stage('Run') {
             steps {
-//                 echo 'Running...'
+                echo 'Running...'
+                echo "--------------------PWD-------------------------"
+                sh "pwd"
+                sh "ls"
                 dir('./target/') {
-                   // bat "pwd"
-                    bat "java -jar ApiAutomation-0.0.1-SNAPSHOT.jar"
+                    sh "java -jar ApiAutomation-0.0.1-SNAPSHOT.jar"
                 }
             }
         }
