@@ -24,6 +24,7 @@ public class ApiAutomationApplication {
             //System.out.println("listttt : "+SwaggerUrls.getModifiedOrAddedLines("swaggersUrls","main"));
 
             String swaggerContent = HttpGenericServices.getSwaggerContentFromUrl("https://petstore.swagger.io/v2/swagger.json");
+            System.out.println("liste des URL Swagger : "+swaggerContent);
             //SwaggerUrls.addSwaggerToRelease(swaggerContent);
 
             //////////////////////////////////////////////////////////////
