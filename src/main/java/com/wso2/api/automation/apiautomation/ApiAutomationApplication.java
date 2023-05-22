@@ -20,11 +20,10 @@ public class ApiAutomationApplication {
         String apiId = null;
 
         try {
-            //test///////////////////
+            //test00///////////////////
             //System.out.println("listttt : "+SwaggerUrls.getModifiedOrAddedLines("swaggersUrls","main"));
 
             String swaggerContent = HttpGenericServices.getSwaggerContentFromUrl("https://petstore.swagger.io/v2/swagger.json");
-            System.out.println("liste des URL Swagger : "+swaggerContent);
             //SwaggerUrls.addSwaggerToRelease(swaggerContent);
 
             //////////////////////////////////////////////////////////////

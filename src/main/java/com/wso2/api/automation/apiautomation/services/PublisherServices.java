@@ -44,11 +44,11 @@ public class PublisherServices {
         String version=null;
         String endPoints=null;
 
-            name = "Messagerie";//FileUtils.find(swaggerFileContent,"info.title");
-            version = "1.0.0";FileUtils.find(swaggerContent,"info.version");
+            name = "Drive";//FileUtils.find(swaggerFileContent,"info.title");
+            version = "1.0.0";//FileUtils.find(swaggerContent,"info.version");
             endPoints = "https://localhost:9443/am/v1/api/";//FileUtils.find(swaggerFileContent,"servers[0].url");
         additionalProperties.setName(name);
-        additionalProperties.setContext("Api");
+        additionalProperties.setContext("Apis");
         additionalProperties.setVersion(version);
 
         Endpoints production_endpoints = new Endpoints(endPoints);
