@@ -59,6 +59,7 @@ public class OAuth2TokenServices {
 
             response = AuthHttpUtils.getUnsafeOkHttpClientWithProxy().newCall(request).execute();
             body = response.body().string();
+            System.out.println("body requet token : "+body);
             JSONObject jsonBody = new JSONObject(body);
             String accesToken = jsonBody.getString(ACCES_TOKEN);
             System.out.println("Access token : "+accesToken);
