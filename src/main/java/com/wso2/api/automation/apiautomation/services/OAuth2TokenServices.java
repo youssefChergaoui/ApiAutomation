@@ -52,14 +52,13 @@ public class OAuth2TokenServices {
                 .addHeader(AUTHORIZATION, credentials)
                 .post(requestBody)
                 .build();
-
+        System.out.println("RequestBody : "+request);
         Response response = null;
         String body = null;
         try {
 
             response = AuthHttpUtils.getUnsafeOkHttpClientWithProxy().newCall(request).execute();
             body = response.body().string();
-            System.out.println("body requet token : "+body);
             JSONObject jsonBody = new JSONObject(body);
             String accesToken = jsonBody.getString(ACCES_TOKEN);
             System.out.println("Access token : "+accesToken);
