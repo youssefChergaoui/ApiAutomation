@@ -52,7 +52,6 @@ public class OAuth2TokenServices {
                 .addHeader(AUTHORIZATION, credentials)
                 .post(requestBody)
                 .build();
-        System.out.println("RequestBody : "+request);
         Response response = null;
         String body = null;
         try {

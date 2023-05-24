@@ -77,7 +77,7 @@ public class PublisherServices {
             if (response.isSuccessful()) {
                 System.out.println("successfully import || Response Body : " + bodyResponse);
             } else {
-                System.out.println("Failed to import Swagger definition : " + response.code() + " || " + bodyResponse);
+                throw new IOException("Failed to import Swagger definition : " + response.code() + " || " + bodyResponse);
             }
             importedApi =new Gson().fromJson(bodyResponse,ImportedApi.class);
             return importedApi.getId();
@@ -253,8 +253,7 @@ public class PublisherServices {
                 System.out.println("The revision was successfully deleted : "+ response.code() + " "+ requestBody);
                 return true;
             } else {
-                System.out.println("Failed to delete revision. Error : " + response.code() + " "+ requestBody);
-                return false;
+                throw new IOException("Failed to delete revision. Error : " + response.code() + " "+ requestBody);
             }
         } catch (Exception e) {
             System.out.println("Failed to delete revision. Error : " + e.getMessage());
@@ -289,7 +288,7 @@ public class PublisherServices {
                 return revision.getId();
 
             } else {
-                System.out.println("Failed to create new revision. Response code : " + response.code() +" "+ responseBody);
+                throw new IOException("Failed to create new revision. Response code : " + response.code() +" "+ responseBody);
             }
         } catch (IOException e) {
             System.out.println("Failed to create new revision. Error message : " + e.getMessage());
@@ -324,7 +323,7 @@ public class PublisherServices {
 
                 System.out.println("Revision deployed successfully || Response Body : "+responseBody);
             } else {
-                System.out.println("Failed to deploy revision. Response code : " + response.code() +" / "+ responseBody);
+                throw new IOException("Failed to deploy revision. Response code : " + response.code() +" / "+ responseBody);
             }
         } catch (IOException e) {
             System.out.println("Failed to deploy revision. Error message : " + e.getMessage()+" "+ responseBody);
@@ -360,7 +359,7 @@ public class PublisherServices {
             if (response.isSuccessful()) {
                 System.out.println("API Status changed successfully || Response Body : " + responseBody);
             } else {
-                System.out.println("Failed to change API Status : " + response.code() + " || " + responseBody);
+                throw new IOException("Failed to change API Status : " + response.code() + " || " + responseBody);
             }
         } catch (IOException e) {
             System.out.println("Failed to change API Status. Error message : " + e.getMessage());
@@ -397,7 +396,7 @@ public class PublisherServices {
             if (response.isSuccessful()) {
                 System.out.println("API updated successfully || Response Body : " + responseBody);
             } else {
-                System.out.println("Failed to update API : " + response.code() + " || " + responseBody);
+                throw new IOException("Failed to update API : " + response.code() + " || " + responseBody);
             }
         } catch (IOException e) {
             System.out.println("Failed to update API. Error message : " + e.getMessage());
@@ -424,14 +423,16 @@ public class PublisherServices {
                 System.out.println("Successfully updated API swagger || Response Body : " + bodyResponse);
                 return true;
             } else {
-                System.out.println("Failed to update API swagger : " + response.code() + " || " + bodyResponse);
-                return false;
+                throw new IOException("Failed to update API swagger : " + response.code() + " || " + bodyResponse);
             }
         } catch (Exception e) {
             System.out.println("Failed to update API swagger. Error : " + e.getMessage());
             return false;
         }
     }
+
+    //////test//////////////////
+
 
 
 

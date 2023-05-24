@@ -2,10 +2,7 @@ package com.wso2.api.automation.apiautomation;
 
 import com.wso2.api.automation.apiautomation.models.Revision;
 import com.wso2.api.automation.apiautomation.models.SwaggerAsset;
-import com.wso2.api.automation.apiautomation.services.HttpGenericServices;
-import com.wso2.api.automation.apiautomation.services.OAuth2TokenServices;
-import com.wso2.api.automation.apiautomation.services.PublisherServices;
-import com.wso2.api.automation.apiautomation.services.SwaggerUrls;
+import com.wso2.api.automation.apiautomation.services.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
@@ -126,6 +123,9 @@ public class ApiAutomationApplication {
             //Update API
             //UpdateApiRequest updateApiRequest=new UpdateApiRequest("","","");
             //PublisherServices.updateApi(apiId,accessToken,updateApiRequest);
+            System.out.println(":::::::::::::::::::test:::::::::::::::");
+            TestApiServices.testApisInSwagger("https://petstore.swagger.io/v2/swagger.json","https://localhost:9443",accessToken);
+            //TestApiServices.sendGetRequest("https://petstore.swagger.io/v2/pet/findByStatus?status=available",accessToken);
 
         } catch (Exception e) {
             System.err.println("Erreur : " + e.getMessage());
