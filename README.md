@@ -1,8 +1,6 @@
 # ApiAutomation
 
-Analyse des besoins et spécifications fonctionnelles : Cette étape consiste à comprendre les besoins de l'entreprise en termes de gestion des APIs et à définir les fonctionnalités et les exigences du système.
-
-Conception et développement du projet Java : Dans cette étape, vous développez une application Java qui permet d'automatiser le déploiement, les tests et le suivi des APIs. L'application utilise les API REST de WSO2 pour les opérations de gestion des APIs, ainsi que les API REST de GitHub pour accéder au contenu des fichiers Swagger dans votre repo GitHub.
+L'application utilise les API REST de WSO2 pour les opérations de gestion des APIs, ainsi que les API REST de GitHub pour accéder au contenu des fichiers Swagger dans votre repo GitHub.
 
 Configuration du Webhook : Vous configurez un Webhook dans votre repo GitHub afin de détecter automatiquement les changements dans les fichiers contenant les URLs de Swagger. Lorsqu'un changement est détecté, le Webhook déclenche une action.
 
