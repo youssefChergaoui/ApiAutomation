@@ -1,0 +1,102 @@
+---
+- name: Create fabio directory
+  file:
+    path: "{{ work_dir }}"
+    state: directory
+    group: "{{ owner }}"
+    owner: "{{ owner }}"
+  become: true
+
+- name: "[fabio] Transfer artifact"
+  ansible.builtin.get_url:
+    url: ""
+    dest: "{{ work_dir }}/fabio"
+    mode: a+x
+    owner: "{{ owner }}"
+    group: "{{ owner }}"
+  become: true
+
+- name: "Prepare fabio files (fabio.properties)"
+  become: true
+  copy:
+    dest: "{{ work_dir }}/fabio.properties"
+    content: |
+      proxy.addr=:{{ proxy_port }};cs=app
+      registry.backend=file
+      registry.file.path={{ work_dir }}/routes.properties
+      registry.file.noroutehtmlpath={{ work_dir }}/no-route.html
+      ui.addr=:9998
+      proxy.cs=cs=app;type=file;cert=/etc/ssl/certs/host.pem;key=/etc/ssl/certs/host.key
+    group: "{{ owner }}"
+    owner: "{{ owner }}"
+
+- name: "Prepare fabio files (no-route.html)"
+  become: true
+  copy:
+    dest: "{{ work_dir }}/no-route.html"
+    content: |
+      <html><body><h1>404: no fabio route defined for this path</h1></body></html>
+    group: "{{ owner }}"
+    owner: "{{ owner }}"
+
+- name: "Prepare fabio files (routes.properties)"
+  become: true
+  copy:
+    dest: "{{ work_dir }}/routes.properties"
+    content: |
+      route add srv :8443 tcp://{{ db_ip }}:12400 opts "proto=tcp  tlsskipverify=true"
+    group: "{{ owner }}"
+    owner: "{{ owner }}"
+
+- name: "[fabio] Create systemd service"
+  become: true
+  copy:
+    dest: "/etc/systemd/system/fabio.service"
+    content: |
+      [Unit]
+      Description=fabio
+
+      [Service]
+      Type=idle
+      User={{ owner }}
+      Group={{ owner }}
+      WorkingDirectory={{ work_dir }}
+      ExecStart={{ work_dir }}/fabio -cfg {{ work_dir }}/fabio.properties
+      LimitMEMLOCK=infinity
+      LimitNOFILE=65535
+      TimeoutStartSec=600
+      TimeoutStopSec=600
+
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Add SELinux permission
+  ignore_errors: yes
+  become: true
+  ansible.builtin.shell:
+    cmd: "semanage fcontext -a -t bin_t {{ work_dir }}/fabio"
+
+- name: Restore conf
+  ignore_errors: yes
+  become: true
+  ansible.builtin.shell:
+    cmd: "restorecon -Rv {{ work_dir }}/fabio"
+
+- name: Reload systemd daemon
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: crond
+  become: true
+
+- name: "[fabio] Ensure service is enabled"
+  service:
+    name: "fabio"
+    state: restarted
+    enabled: true
+  become: true
+
+- name: Wait for port {{ proxy_port }}
+  wait_for:
+    port: "{{ proxy_port }}"
+    timeout: 30
